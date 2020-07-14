@@ -7,6 +7,28 @@ except ImportError:
 
 mainWindow = tkinter.Tk()
 
+
+def load_images(card_images):
+    suits = ['heart', 'club', 'diamond', 'spade']
+    face_cards = ['jack', 'queen', 'king']
+
+    if tkinter.TkVersion >= 8.6:
+        extension = 'png'
+    else:
+        extension = 'ppm'
+
+    for suit in suits:
+        for card in range(1, 11):
+            name = 'cards/{}_{}.{}'.format(str(card), suit, extension)
+            image = tkinter.PhotoImage(file=name)
+            card_images.append((card, image,))
+
+        for card in face_cards:
+            name = 'cards/{}_{}.{}'.format(str(card), suit, extension)
+            image = tkinter.PhotoImage(file=name)
+            card_images.append((10, image,))
+
+
 mainWindow.title("Black Jack")
 mainWindow.geometry("640x480")
 
@@ -45,3 +67,9 @@ dealer_button.grid(row=0, column=0)
 
 player_button = tkinter.Button(button_frame, text="Player")
 player_button.grid(row=0, column=1)
+
+
+cards = []
+load_images(cards)
+print(cards)
+mainWindow.mainloop()
