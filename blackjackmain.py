@@ -5,8 +5,6 @@ try:
 except ImportError:
     import tkinter as tkinter
 
-mainWindow = tkinter.Tk()
-
 
 def load_images(card_images):
     suits = ['heart', 'club', 'diamond', 'spade']
@@ -31,7 +29,7 @@ def load_images(card_images):
 
 def deal_card(frame):
     # pop the next card off the top of the deck
-    next_card = deck.pop()
+    next_card = deck.pop(0)
     # add the image to a label and display the label
     tkinter.Label(frame,
                   image=next_card[1],
@@ -45,12 +43,26 @@ def deal_dealer():
 
 
 def deal_player():
-    deal_card(player_card_frame)
+    player_score = 0
+    card_value = deal_card(player_card_frame)[0]
+    if card_value == 1 and not player_ace:
+        card_value = 11
+    player_score += card_value
+    #  if we would bust, check if there is an ace and subtract 10
+    if player_score > 21 and player_ace:
+        player_score -= 10
+    player_score_label.set(player_score)
+    if player_score > 21:
+        result_text.set("Dealer wins")
+
+
+mainWindow = tkinter.Tk()
 
 
 # set up the screen the frames for the dealer and player
 mainWindow.title("Black Jack")
 mainWindow.geometry("640x480")
+mainWindow.configure(background="green")
 
 result_text = tkinter.StringVar()
 result = tkinter.Label(mainWindow, textvariable=result_text)
@@ -61,6 +73,9 @@ card_frame = tkinter.Frame(mainWindow, relief="sunken", borderwidth=1,
 card_frame.grid(row=0, column=0, sticky="ew", columnspan=3, rowspan=2)
 
 dealer_score_label = tkinter.IntVar()
+player_score = 0
+player_ace = False
+
 tkinter.Label(card_frame, text="dealer",
               background="green", fg="white") \
     .grid(row=0, column=0)
