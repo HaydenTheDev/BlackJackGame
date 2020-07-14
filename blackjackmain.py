@@ -29,6 +29,16 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
+def deal_card(frame):
+    # pop the next card off the top of the deck
+    next_card = deck.pop()
+    # add the image to a label and display the label
+    tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
+    # now return the card's face value
+    return next_card
+
+
+# set up the screen the frames for the dealer and player
 mainWindow.title("Black Jack")
 mainWindow.geometry("640x480")
 
@@ -72,4 +82,15 @@ player_button.grid(row=0, column=1)
 cards = []
 load_images(cards)
 print(cards)
+
+#  create a new deck of cards and shuffle them
+#  deck is a list of cards
+deck = list(cards)
+random.shuffle(deck)
+
+# create the list to store the dealer's and player's hands
+dealer_hand = []
+player_hand = []
+
+
 mainWindow.mainloop()
