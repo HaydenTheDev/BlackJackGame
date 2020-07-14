@@ -33,6 +33,7 @@ def load_images(card_images):
 def deal_card(frame):
     # pop the next card off the top of the deck
     next_card = deck.pop(0)
+    deck.append(next_card)
     # add the image to a Label and display the label
     tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
     # now return the card's face value
@@ -106,6 +107,10 @@ def reset_game():
     deal_player()
 
 
+def shuffle():
+    random.shuffle(deck)
+
+
 
     #
     # global player_score
@@ -126,6 +131,7 @@ def reset_game():
 
 
 mainWindow = tkinter.Tk()
+
 
 # Set up the screen and frames for the dealer and player
 mainWindow.title("Black Jack")
@@ -166,19 +172,23 @@ player_button.grid(row=0, column=1)
 reset_button = tkinter.Button(button_frame, text="Reset", command=reset_game)
 reset_button.grid(row=0, column=2)
 
+shuffle_button = tkinter.Button(button_frame, text="Shuffle", command=shuffle)
+shuffle_button.grid(row=0, column=3)
+
 # load cards
 cards = []
 load_images(cards)
 print(cards)
+
 # Create a new deck of cards and shuffle them
 deck = list(cards)
-
+shuffle()
+random.shuffle(deck)
 
 # Create the list to store the dealer's and player's hands
 dealer_hand = []
 player_hand = []
 reset_game()
 
-random.shuffle(deck)
 
 mainWindow.mainloop()
