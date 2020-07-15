@@ -1,5 +1,11 @@
 import blackjackmain
 
-print(__name__)
-blackjackmain.play()
-print(blackjackmain.cards)
+
+# blackjackmain.__deal_card(blackjackmain.dealer_card_frame)
+# blackjackmain.play()
+
+personal_details = ("Hayden", 25, "United States")
+
+name, _, country = personal_details
+print(name, country)
+print(_)
