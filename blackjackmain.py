@@ -111,27 +111,16 @@ def shuffle():
     random.shuffle(deck)
 
 
+def play():
+    deal_player()
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
 
-    #
-    # global player_score
-    # global player_ace
-    # card_value = deal_card(player_card_frame)[0]
-    # if card_value == 1 and not player_ace:
-    #     player_ace = True
-    #     card_value = 11
-    # player_score += card_value
-    # # if we would bust, check if there is an ace and subtract
-    # if player_score > 21 and player_ace:
-    #     player_score -= 10
-    #     player_ace = False
-    # player_score_label.set(player_score)
-    # if player_score > 21:
-    #     result_text.set("Dealer wins!")
-    # print(locals())
+    mainWindow.mainloop()
 
 
 mainWindow = tkinter.Tk()
-
 
 # Set up the screen and frames for the dealer and player
 mainWindow.title("Black Jack")
@@ -163,16 +152,16 @@ player_card_frame.grid(row=2, column=1, sticky='ew', rowspan=2)
 button_frame = tkinter.Frame(mainWindow)
 button_frame.grid(row=3, column=0, columnspan=3, sticky='w')
 
-dealer_button = tkinter.Button(button_frame, text="Dealer", command=deal_dealer)
+dealer_button = tkinter.Button(button_frame, text="Dealer", command=deal_dealer, width=6)
 dealer_button.grid(row=0, column=0)
 
-player_button = tkinter.Button(button_frame, text="Player", command=deal_player)
+player_button = tkinter.Button(button_frame, text="Player", command=deal_player, width=6)
 player_button.grid(row=0, column=1)
 
-reset_button = tkinter.Button(button_frame, text="Reset", command=reset_game)
+reset_button = tkinter.Button(button_frame, text="Reset", command=reset_game, width=6)
 reset_button.grid(row=0, column=2)
 
-shuffle_button = tkinter.Button(button_frame, text="Shuffle", command=shuffle)
+shuffle_button = tkinter.Button(button_frame, text="Shuffle", command=shuffle, width=6)
 shuffle_button.grid(row=0, column=3)
 
 # load cards
@@ -181,14 +170,14 @@ load_images(cards)
 print(cards)
 
 # Create a new deck of cards and shuffle them
-deck = list(cards)
+deck = list(cards) + list(cards) + list(cards)
 shuffle()
 random.shuffle(deck)
 
 # Create the list to store the dealer's and player's hands
 dealer_hand = []
 player_hand = []
-reset_game()
 
+if __name__ == "__main__":
+    play()
 
-mainWindow.mainloop()
