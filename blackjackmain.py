@@ -85,6 +85,13 @@ def deal_player():
         result_text.set("Dealer Wins!")
 
 
+def initial_deal():
+    deal_player()
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
+
+
 def reset_game():
     global dealer_card_frame
     global player_card_frame
@@ -100,11 +107,7 @@ def reset_game():
 
     dealer_hand = []
     player_hand = []
-
-    deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
-    dealer_score_label.set(score_hand(dealer_hand))
-    deal_player()
+    initial_deal()
 
 
 def shuffle():
@@ -112,11 +115,7 @@ def shuffle():
 
 
 def play():
-    deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
-    dealer_score_label.set(score_hand(dealer_hand))
-    deal_player()
-
+    initial_deal()
     mainWindow.mainloop()
 
 
@@ -124,7 +123,7 @@ mainWindow = tkinter.Tk()
 
 # Set up the screen and frames for the dealer and player
 mainWindow.title("Black Jack")
-mainWindow.geometry("640x480")
+mainWindow.geometry("400x270")
 mainWindow.configure(background='green')
 
 result_text = tkinter.StringVar()
